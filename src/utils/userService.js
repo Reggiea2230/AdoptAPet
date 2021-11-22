@@ -12,6 +12,7 @@ function signup(user) {
   .then(res => {
     if (res.ok) return res.json();
     // Probably a duplicate email
+    console.log("if you have an error, you must check your server terminal!")
     throw new Error('Email already taken!');
   })
   // Parameter destructuring!

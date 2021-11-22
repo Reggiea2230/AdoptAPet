@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react';
 import userService from "../../utils/userService";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function SignUpPage(props){
+
+  const navigate = useNavigate()
+
   const [error, setError] = useState("");
   const [state, setState] = useState({
     username: '',
@@ -36,13 +40,21 @@ export default function SignUpPage(props){
     for(let key in state){
       formData.append(key, state[key])
     }
+
     //if you log out formData, you won't see anything
     console.log(formData, " <-This will show nothing")
     // you can look inside by doing this
     console.log(formData.forEach((item) => console.log(item)))
+
+
+
     try {
-      
+      // For Request that are sending over a photo, we must send formData
       await userService.signup(formData)
+      
+      props.handleSignUpOrLogin()
+      navigate('/')
+
     } catch(err){
       setError(err.message)
     }
