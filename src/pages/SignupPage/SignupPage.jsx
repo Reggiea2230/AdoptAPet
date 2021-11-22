@@ -25,12 +25,21 @@ export default function SignUpPage(props){
 
   async function handleSubmit(e){
     e.preventDefault() 
+    //forms with files only we have to do, evertything else can be json
+    //take our state
+    //create a formData object, for our fetch request
     const formData = new FormData();
+    //adding our photo to the FormData, its key will be called Photo
     formData.append('photo', selectedFile)
+
+    //now we must do the same thing with the rest of our state
     for(let key in state){
       formData.append(key, state[key])
     }
-
+    //if you log out formData, you won't see anything
+    console.log(formData, " <-This will show nothing")
+    // you can look inside by doing this
+    console.log(formData.forEach((item) => console.log(item)))
     try {
       
       await userService.signup(formData)
