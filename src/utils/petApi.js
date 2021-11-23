@@ -2,10 +2,10 @@ import tokenService from "./tokenService"
 
 const BASE_URL = '/api/posts/'
 
-export function create(){
+export function create(body){
     return fetch(BASE_URL,{
         method: 'POST',
-        // body: req.body,
+        body: JSON.stringify(body),
         headers:{
             'Authorization': 'Bearer' + tokenService.getToken()
         }

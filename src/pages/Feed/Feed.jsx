@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import PostFeed from '../../components/PostFeed/PostFeed';
-import * as postsApi from '../../utils/postApi';
+import * as petApi from '../../utils/petApi';
 import { Grid } from "semantic-ui-react";
 
     const apikey = "LnaEpnYWwZRjywZ2VH9tmITZeHlnaPUeuqsW5u58H6I2roZzSt";
@@ -15,7 +15,7 @@ export default function Feed(props){
     useEffect(()=>{
         const search = async () => {
           
-            setToken(response.access_token)
+            
         }
         search()
     },[])
