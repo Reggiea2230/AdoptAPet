@@ -12,13 +12,11 @@ export default function Feed(props) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  // Have a function that makes an api call to update the state
+
   async function handleAddPost(post) {
     try {
       setLoading(true);
-      const data = await postsApi.create(post); // our server is going to return
-      // the created post, that will be inside of data, which is the response from
-      // the server, we then want to set it in state
+      const data = await postsApi.create(post); 
       console.log(data, " this is response from the server, in handleAddPost");
       setPosts([data.post, ...posts]);
       setLoading(false);
@@ -53,9 +51,6 @@ export default function Feed(props) {
 	}	
   }
 
-
-
-
   async function getPosts(showLoading) {
     try {
       
@@ -71,19 +66,8 @@ export default function Feed(props) {
   }
 
   useEffect(() => {
-    const search = async () => {
-          
-            
-    }
     getPosts();
-    search();
-  }, []); // <- useEffect with the empty array this makes the getPosts function call when the component is loaded
-  // on the page
-
-
-  // Always check the error before loading, because if there is an error
-  // we know something went wrong with the fetch call, therefore the http request 
-  // is complete
+  }, []); 
   if (error) {
     return <ErrorMessage error={error} />;
   }

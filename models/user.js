@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema({
   username: {type: String, required: true, lowercase: true, unique: true},
   email: {type: String, required: true, lowercase: true, unique: true},
   password: String,
-  bio: String,
-  photoUrl: String
+  photoUrl: String, 
+  bio: String
 }, {
   timestamps: true
 });
@@ -20,6 +20,8 @@ userSchema.set('toJSON', {
     return ret;
   }
 });
+
+
 
 // this is if you populate the user
 userSchema.set('toObject', {

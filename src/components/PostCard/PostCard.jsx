@@ -1,7 +1,8 @@
-import React from "react";
+ import React from "react";
 import { Card, Icon, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 function PostCard({ post, isProfile, user, removeLike, addLike }) {
+
   const likeIndex = post.likes.findIndex(
     (eachLike) => eachLike.username === user.username
   );
