@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Button, Form, Grid, Segment } from "semantic-ui-react";
 
-export default function AddPuppyForm(props) {
+export default function AddPetForm(props) {
   const [selectedFile, setSelectedFile] = useState("");
   const [state, setState] = useState({
     caption: "",
@@ -38,7 +38,7 @@ export default function AddPuppyForm(props) {
               className="form-control"
               name="caption"
               value={state.caption}
-              placeholder="What's on your pups mind?"
+              placeholder="What pet are you looking for?"
               onChange={handleChange}
               required
             />

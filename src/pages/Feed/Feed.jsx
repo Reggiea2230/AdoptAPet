@@ -4,7 +4,7 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import PostFeed from "../../components/PostFeed/PostFeed";
 import PostForm from "../../components/PostForm/PostForm";
 import * as postsApi from "../../utils/postApi";
-import * as likesApi from '../../utils/likesApi'
+import * as likesApi from '../../utils/likesApi';
 
 import { Grid } from "semantic-ui-react";
 
