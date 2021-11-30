@@ -1,46 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {
-  Container,
-  Dropdown,
-  Image,
-  Menu,
-} from 'semantic-ui-react'
-import SearchBar from '../Search/SearchBar';
+import { Header, Segment, Image, Icon } from 'semantic-ui-react';
 
 
+export default function PageHeader({user, handleLogout}){
 
-const fixedMenuStyle = {
-  backgroundColor: '#A3CACC',
-  border: '1px solid #ddd',
-  boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
-  fontSize:'1.5em'
-}
+        return (
+            <Segment clearing>
+                <Header as='h2' floated='right'>
+                    <Link to="/"><Icon name="home"></Icon></Link>
+                    <Link to='' onClick={handleLogout}>Logout</Link>
+                    <Link to="https://www.humanesociety.org/resources/top-reasons-adopt-pet"><Icon name="Reason Why to Adopt"></Icon></Link>
+                </Header>
+                <Header as='h2' floated='left'>
+                    <Link to={`/${user.username}`}><Image src={user.photoUrl ? user.photoUrl : "https://react.semantic-ui.com/images/wireframe/square-image.png"} avatar></Image></Link>          
+                </Header>
+            </Segment>
+        )
+    }
 
-
-export default function PageHeader({user, handleLogout, setResults, results, setSearchText, searchText}){
-
-    return (
-        <div>
-            <Menu borderless fixed='top' style={fixedMenuStyle}>
-            <Menu.Item header><Link to="/">  style={{ marginLeft: '5em' }} </Link></Menu.Item>
-            <Menu.Item header><Link to="/">Home</Link></Menu.Item>
-            <Menu.Item as='a'><Link to="/bestsellerslist">Browse Pets</Link></Menu.Item>
-              <Menu.Item><SearchBar setResults={setResults} results={results} searchText={searchText} setSearchText={setSearchText}/></Menu.Item>
-            <Container>   
-
-              <Menu.Menu position='right'>
-              <Menu.Item as='a'><Link to={`/${user.username}`}><Image src={user.photoUrl ? user.photoUrl : "https://react.semantic-ui.com/images/wireframe/square-image.png"} avatar size='tiny'></Image> </Link> </Menu.Item>
-                <Dropdown text={user.username} pointing className='link item'>
-                  <Dropdown.Menu>
-
-                    <Dropdown.Item><Link to='' onClick={handleLogout}>Logout</Link></Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Menu.Menu>
-            </Container>
-          </Menu>
-
-        </div>
-    )
-}

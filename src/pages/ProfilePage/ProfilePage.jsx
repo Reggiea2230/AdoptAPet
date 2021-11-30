@@ -1,50 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import { Grid } from 'semantic-ui-react'
-import userService from '../../utils/userService';
-import ProfileBio from '../../components/Profile/Profile';
-import PageHeader from '../../components/Header/Header';
-import { useLocation } from 'react-router-dom';
-// import PageFooter from '../../components/Footer/Footer';
+import React, { useState, useEffect } from "react";
+import { Grid } from "semantic-ui-react";
+import Loading from "../../components/Loader/Loader";
+import ProfileBio from "../../components/ProfileBio/ProfileBio";
+import PostFeed from "../../components/PostFeed/PostFeed";
+import { useParams } from "react-router-dom";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import userService from "../../utils/userService";
+import * as likesApi from "../../utils/likesApi";
 
-export default function ProfilePage({ user, handleLogout, setResults, results, searchText, setSearchText}) {
+export default function ProfilePage(props) {
+  const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState({});
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
-    const [profileUser, setProfileUser] = useState({})
-    const [error, setError] = useState('')
+  // This variable name is coming from the route definition in app.js
+  const { username } = useParams();
 
-    const location = useLocation()
+  useEffect(() => {
+    // async and await on this anoymous function ^
 
-    async function getProfile() {
+    getProfile();
+  }, [username]);
 
-        try {
-            const username = location.pathname.substring(1)
-            const data = await userService.getProfile(username);
-            setProfileUser(() => data.user)
-        } catch (err) {
-            setError(err)
-        }
+  async function getProfile() {
+    try {
+      const data = await userService.getProfile(username);
+      setPosts(data.posts);
+      setUser(data.user);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
     }
+  }
 
-    useEffect(() => {
-        getProfile()
-    }, [])
-    
+  async function addLike(postId) {
+    try {
+      const data = await likesApi.create(postId);
+      console.log(data, " <- this is data the response from likes create");
+      getProfile();
+    } catch (err) {
+      console.log(err);
+      setError(err.message);
+    }
+  }
 
-    return (
+  async function removeLike(likesId) {
+    try {
+      const data = await likesApi.removeLike(likesId);
+      console.log(data, " <- this is data the response from likes delete");
+      getProfile(false);
+    } catch (err) {
+      console.log(err);
+      setError(err.message);
+    }
+  }
 
-        <div>
-                <Grid style={{ marginTop: '15em' }}>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <PageHeader user={user} handleLogout={handleLogout} setResults={setResults} results={results} searchText={searchText} setSearchText={setSearchText}/>
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>  
-                            <ProfileBio user={user} />
-                    </Grid.Row>
-                    <Grid.Row centered>                
-                    </Grid.Row> 
-                </Grid>
-            <PageFooter/>
-        </div>
-    )
+  // Always check the error before loading, because if there is an error
+  // we know something went wrong with the fetch call, therefore the http request
+  // is complete
+  if (error) {
+    return <ErrorMessage error={error} />;
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  return (
+    <Grid centered>
+      <Grid.Row>
+        <Grid.Column>
+          <ProfileBio user={user} />
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column style={{ maxWidth: 750 }}>
+          <PostFeed
+            isProfile={true}
+            posts={posts}
+            numPhotosCol={3}
+            user={props.user}
+			addLike={addLike}
+			removeLike={removeLike}
+          />
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  );
 }

@@ -1,15 +1,18 @@
-const mongoose = require("mongoose");
+
+  
+const mongoose = require('mongoose');
 
 mongoose.connect(
-  process.env.DATABASE_URL, // < replace with your database name!
-)
+  'mongodb://localhost:27017/testagram',
+  { useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  }
+);
 
 const db = mongoose.connection;
 
-db.on("connected", function () {
+db.on('connected', function() {
   console.log(`Connected to MongoDB at ${db.host}:${db.port}`);
 });
-
-db.on('error', function(err){
-  console.log(`Mongodb error: ${err}`)
-})

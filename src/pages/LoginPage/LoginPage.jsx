@@ -42,10 +42,9 @@ export default function LoginPage(props) {
       setError(err.message);
     }
   }
-   
 
-    return (
-      <>
+  return (
+    <>
       <Grid
         textAlign="center"
         style={{ height: "100vh" }}
@@ -92,6 +91,6 @@ export default function LoginPage(props) {
         </Grid.Column>
       </Grid>
     </>
-      );
+  );
 }
 

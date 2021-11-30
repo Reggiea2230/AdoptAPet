@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SignUpPage(props){
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [error, setError] = useState("");
   const [state, setState] = useState({
