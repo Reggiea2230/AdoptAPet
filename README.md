@@ -1,3 +1,6 @@
-# Adopt A Pet
+# Find My Pet
 
-#### Adopt A Pet is site for pet lovers who want to provided a pet a new home. In the US about 810,000 animals that enter the shelter as strays. Adopt A Pet, will give the user the ablility to locate their little friend from list of a adopting agencies throughtout the US.
+#### Find My Pet is site for pet owners that have loss their family pet. Each year, approximately 10 million pets are lost in the United States, and millions of those end up in the nation's animal shelters. Tragically, only 15 percent of dogs and 2 percent of cats in shelters without ID tags or microchips are reunited with their owners. This gives the pet owner the ablitiy to post their missing pets to help in their search.
+
+
+
