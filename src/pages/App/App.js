@@ -3,10 +3,12 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import SignupPage from "../SignupPage/SignupPage";
 import LoginPage from "../LoginPage/LoginPage";
+import Layout from "../Layout/Layout";
+import Feed from "../Feed/Feed";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import userService from "../../utils/userService";
-import Feed from "../Feed/Feed";
-import Layout from "../Layout/Layout";
+
+
 
 function App() {
   // decode our jwt token
