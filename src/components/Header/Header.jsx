@@ -7,13 +7,15 @@ export default function PageHeader({user, handleLogout}){
 
         return (
             <Segment clearing>
-                <Header as='h2' floated='right'>
+                <Header as='h1' floated="center">
+                    <Link to="/">Find My Pet</Link>
+                </Header>
+                <Header as='h2' floated='right'> 
                     <Link to="/"><Icon name="home"></Icon></Link>
                     <Link to='' onClick={handleLogout}>Logout</Link>
-                    <Link to="https://www.humanesociety.org/resources/top-reasons-adopt-pet"><Icon name="Reason Why to Adopt"></Icon></Link>
                 </Header>
                 <Header as='h2' floated='left'>
-                    <Link to={`/${user.username}`}><Image src={user.photoUrl ? user.photoUrl : "https://react.semantic-ui.com/images/wireframe/square-image.png"} avatar></Image></Link>          
+                    <Link to={`/${user.username}`}><Image src={user.photoUrl ? user.photoUrl : "https://react.semantic-ui.com/images/wireframe/square-image.png"} avatar></Image></Link>                
                 </Header>
             </Segment>
         )

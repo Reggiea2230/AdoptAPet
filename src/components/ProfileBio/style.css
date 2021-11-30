@@ -1,3 +1,7 @@
-.ProfileBio .profile-image {
+.ProfileBio  {
     border-radius: 10px;
+}
+
+.bio {
+    color: white;
 }

@@ -77,9 +77,9 @@ export default function Feed(props) {
   }
 
   return (
-    <Grid centered>
+    <Grid centered >
       <Grid.Row>
-        <Grid.Column style={{ maxWidth: 450 }}>
+        <Grid.Column style={{ maxWidth: 550 }}>
           <PostForm handleAddPost={handleAddPost} />
         </Grid.Column>
       </Grid.Row>
@@ -90,9 +90,9 @@ export default function Feed(props) {
             isProfile={false}
             numPhotosCol={1}
             loading={loading}
-			user={props.user}
-			addLike={addLike}
-			removeLike={removeLike}
+            user={props.user}
+            addLike={addLike}
+            removeLike={removeLike}
           />
         </Grid.Column>
       </Grid.Row>

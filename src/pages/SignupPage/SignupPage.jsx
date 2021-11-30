@@ -1,65 +1,53 @@
-import React, { useState } from "react";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
-import userService from "../../utils/userService";
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import userService from '../../utils/userService';
+import { useNavigate, Link } from 'react-router-dom';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+
 
 export default function SignUpPage(props) {
 
-  const navigate = useNavigate(); // <- programtically navigate to a different route
+const navigate = useNavigate();  
+const [error, setError] = useState('');
+const[selectedFile, setSelectedFile] = useState('');
+const [state, setState] = useState({
+  username: '',
+  email: '',
+  password: '',
+  passwordConf: '',
+  bio: '',
+});
 
-  const [error, setError] = useState("");
-  const [state, setState] = useState({
-    username: "",
-    email: "",
-    password: "",
-    passwordConf: "",
-    bio: "",
-  });
-
-  const [selectedFile, setSelectedFile] = useState('')
-
-  function handleChange(e) {
+  function handleChange(e){
+    const name = e.target.name;
+    const value = e.target.value;
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      [name]: value
     });
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault()
-
-    // Forms with Files only we have to do, everything else can be json
-    //Take our state 
-    // create a formData object, for our fetch request
+  async function handleSubmit(e){
+    e.preventDefault();
     const formData = new FormData();
-    // adding our photo to the FormData, its key will be called photo
-    formData.append('photo', selectedFile)
-
-    // now we must do the same thing with the rest of our state
-    for (let key in state){
+    formData.append('photo', selectedFile);
+    for(let key in state){
       formData.append(key, state[key])
     }
-
     try {
-      // For requests that are sending over a photo, we must send formData
-      await userService.signup(formData) // after we get a response from the server
-
-      props.handleSignUpOrLogin() // decodes our token in localstorage, and sets the users information in our App.js state
-      navigate('/') // navigates to the home page route
-
-    } catch(err){
+      await userService.signup(formData);
+      props.handleSignUpOrLogin()
+      navigate('/')
+    }catch(err){
+      console.log(err.message)
       setError(err.message)
     }
-
-
   }
 
-  function handleFileInput(e) {
-    console.log(e.target.files)
+  function handleFileInput(e){
     setSelectedFile(e.target.files[0])
   }
-
+  
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
@@ -100,10 +88,10 @@ export default function SignUpPage(props) {
               required
             />
             <Form.TextArea
-              label="bio"
+              label="Missing Pet Info"
               name="bio"
               value={state.bio}
-              placeholder="Tell us more about your dogs..."
+              placeholder="Tell us about your pet that is missing"
               onChange={handleChange}
             />
             <Form.Field>

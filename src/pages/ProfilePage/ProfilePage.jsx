@@ -13,13 +13,9 @@ export default function ProfilePage(props) {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-
-  // This variable name is coming from the route definition in app.js
   const { username } = useParams();
 
   useEffect(() => {
-    // async and await on this anoymous function ^
-
     getProfile();
   }, [username]);
 
@@ -34,10 +30,9 @@ export default function ProfilePage(props) {
     }
   }
 
-  async function addLike(postId) {
+  async function like(postId) {
     try {
       const data = await likesApi.create(postId);
-      console.log(data, " <- this is data the response from likes create");
       getProfile();
     } catch (err) {
       console.log(err);
@@ -48,7 +43,6 @@ export default function ProfilePage(props) {
   async function removeLike(likesId) {
     try {
       const data = await likesApi.removeLike(likesId);
-      console.log(data, " <- this is data the response from likes delete");
       getProfile(false);
     } catch (err) {
       console.log(err);
@@ -56,16 +50,10 @@ export default function ProfilePage(props) {
     }
   }
 
-  // Always check the error before loading, because if there is an error
-  // we know something went wrong with the fetch call, therefore the http request
-  // is complete
   if (error) {
     return <ErrorMessage error={error} />;
   }
 
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <Grid centered>
@@ -81,8 +69,8 @@ export default function ProfilePage(props) {
             posts={posts}
             numPhotosCol={3}
             user={props.user}
-			addLike={addLike}
-			removeLike={removeLike}
+            like={like}
+            removeLike={removeLike}
           />
         </Grid.Column>
       </Grid.Row>

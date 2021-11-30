@@ -38,7 +38,7 @@ export default function AddPetForm(props) {
               className="form-control"
               name="caption"
               value={state.caption}
-              placeholder="What pet are you looking for?"
+              placeholder="Provide a discription of your pet"
               onChange={handleChange}
               required
             />
@@ -50,7 +50,7 @@ export default function AddPetForm(props) {
               onChange={handleFileInput}
             />
             <Button type="submit" className="btn">
-              ADD Pet
+              Add Your Pet
             </Button>
           </Form>
         </Segment>
